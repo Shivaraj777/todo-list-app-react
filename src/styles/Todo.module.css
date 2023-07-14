@@ -1,0 +1,15 @@
+.todoContainer{
+    width: 30rem;
+    position: relative;
+    top: 5rem;
+    left: 30%;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+}
+
+.createtask input{
+    height: 1.5rem;
+    width: 20rem;
+}
