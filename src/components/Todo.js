@@ -1,7 +1,23 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../styles/Todo.module.css';
+import {getTasks} from '../api/index';
 
 function Todo() {
+  const [tasks, setTasks] = useState([]);
+
+  useEffect(() => {
+    const getTodoTasks = async () => {
+      const response = await getTasks(4);
+
+      if(response.success){
+        console.log(response.data);
+        setTasks(response.data);
+      }
+    }
+
+    getTodoTasks();
+  }, [])
+
   return (
     <div className={styles.todoContainer}>
       <div className='app-header'>
@@ -16,7 +32,13 @@ function Todo() {
         <span>  Delete tasks</span>
       </div>
       <div className={styles.todoItems}>
-
+        {
+          tasks.map((task) => (
+            <div className={styles.todoItem}>
+              <li>{task.title}</li>
+            </div>
+          ))
+        }
       </div>
     </div>
   )

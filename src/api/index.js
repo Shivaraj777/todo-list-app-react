@@ -1,3 +1,4 @@
+import { API_URLS, getFormBody } from "../utils";
 
 //global fetch function to make api calls
 const customFetch =  async (url, {body, ...customConfig}) => {
@@ -37,4 +38,11 @@ const customFetch =  async (url, {body, ...customConfig}) => {
       success: false
     }
   }
+}
+
+//API to get the list of tasks
+export const getTasks = (limit) => {
+  return customFetch(API_URLS.getTasks(limit), {
+    method: 'GET'
+  });
 }
