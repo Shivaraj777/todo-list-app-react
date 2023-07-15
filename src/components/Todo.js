@@ -4,10 +4,11 @@ import {addTask, getTasks} from '../api/index';
 import DoneIcon from '../images/done.png';
 import TodoItem from './TodoItem';
 
+let taskId = 201;
+
 function Todo() {
   const [tasks, setTasks] = useState([]);
   const [taskName, setTaskName] = useState('');
-  let taskId = 0;
 
   useEffect(() => {
     const getTodoTasks = async () => {
@@ -33,10 +34,11 @@ function Todo() {
       if(response.success){
         const newTask = {
           userId: 1,
-          id: ++taskId,
+          id: taskId+1,
           title: taskName,
           completed: false
         }
+        console.log(newTask);
         setTasks([newTask, ...tasks]);
       }
     }
@@ -63,7 +65,7 @@ function Todo() {
       <div className={styles.todoItems}>
         {
           tasks.map((task, index) => (
-           <TodoItem task={task} key={index} />
+           <TodoItem task={task} taskId={index} tasks={tasks} setTasks={setTasks} key={index} />
           ))
         }
       </div>

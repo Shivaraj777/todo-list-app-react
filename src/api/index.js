@@ -44,7 +44,7 @@ export const getTasks = (limit) => {
   });
 }
 
-//API to add as task
+//male API call to add as task
 export const addTask = (userId, taskName, taskStatus) => {
   return customFetch(API_URLS.addTask(), {
     method: 'POST',
@@ -53,5 +53,12 @@ export const addTask = (userId, taskName, taskStatus) => {
       title: taskName,
       completed: taskStatus
     }
+  });
+}
+
+//make API call to delete a task
+export const deleteTask = (taskId) => {
+  return customFetch(API_URLS.deleteTask(taskId), {
+    method: 'DELETE'
   });
 }
