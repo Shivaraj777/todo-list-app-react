@@ -3,12 +3,12 @@ import styles from '../styles/Todo.module.css';
 import {addTask, getTasks} from '../api/index';
 import DoneIcon from '../images/done.png';
 import TodoItem from './TodoItem';
-
-let taskId = 201;
+import { useToasts } from 'react-toast-notifications';
 
 function Todo() {
   const [tasks, setTasks] = useState([]);
   const [taskName, setTaskName] = useState('');
+  const {addToast} = useToasts();
 
   useEffect(() => {
     const getTodoTasks = async () => {
@@ -23,23 +23,24 @@ function Todo() {
     getTodoTasks();
   }, [])
 
-
   // handle adding a new task to Todo list
   const addTodoTask = async (e) => {
     // if Enter key is pressed make API call to add task
     if(e.key === 'Enter' || e.target.id === 'add-task'){
-      const response = await addTask(1, taskName, false);
+      const response = await addTask(1, 201, false);
       
       // if response is successfull add new task to list
       if(response.success){
         const newTask = {
           userId: 1,
-          id: taskId+1,
+          id: 201,
           title: taskName,
           completed: false
         }
-        console.log(newTask);
         setTasks([newTask, ...tasks]);
+        addToast('Task added successfully', {
+          appearance: 'success'
+        });
       }
     }
   }
