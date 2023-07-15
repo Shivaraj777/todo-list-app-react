@@ -2,7 +2,7 @@
     width: 40rem;
     position: relative;
     top: 5rem;
-    left: 25%;
+    /* left: 25%; */
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -10,6 +10,98 @@
 }
 
 .createtask input{
-    height: 1.5rem;
-    width: 20rem;
+    height: 2.5rem;
+    width: 35em;
+    padding-left: 10px;
+    border: none;
+    border-radius: 15px;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    background-color: rgb(237, 234, 234);
+}
+
+.createtask button{
+    height: 2.5rem;
+    border: none;
+    border-radius: 15px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    background-color: rgb(137, 1, 1);
+}
+
+.createtask button:hover{
+    cursor: pointer;
+}
+
+.actions{
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding-top: 2rem;
+}
+
+.completeTasks{
+    display: flex;
+    justify-content: space-between;
+}
+
+.completeTasks:hover{
+    cursor: pointer;
+}
+
+.deleteTasks:hover{
+    cursor: pointer;
+}
+
+.todoItems{
+    width: 90%;
+}
+
+.todoItem{
+    height: 3rem;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.todoItem li{
+    list-style: none;
+    word-wrap: break-word;
+}
+
+.taskInfo{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.taskInfo label{
+    padding-top: 11px;
+    padding-left: 10px;
+}
+
+.taskActions{
+    width: 3rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.taskActions img{
+    padding-top: 11px;
+}
+
+.taskActions img:hover{
+    cursor: pointer;
+}
+
+
+/* Media queries */
+@media screen and (max-width: 650px) {
+    .todoContainer{
+        width: auto;
+    }
 }

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../styles/Todo.module.css';
 import {getTasks} from '../api/index';
+import DeletIcon from '../images/delete.png';
+import EditIcon from '../images/editing.png';
+import DoneIcon from '../images/done.png';
 
 function Todo() {
   const [tasks, setTasks] = useState([]);
@@ -24,18 +27,30 @@ function Todo() {
         <h1>Todo App</h1>
       </div>
       <div className={styles.createtask}>
-        <input type='text' />
+        <input type='text' placeholder='Add your task' />
         <button>Add task</button>
       </div>
-      <div className={styles.action}>
-        <span>Complete all tasks  </span>
-        <span>  Delete tasks</span>
+      <div className={styles.actions}>
+        <div className={styles.completeTasks}>
+          <img src={DoneIcon} alt='done-icon' height='30px' width='30px' />
+          <span>Complete all tasks</span>
+        </div>
+        <div className={styles.deleteTasks}>
+          <span>Delete tasks</span>
+        </div>
       </div>
       <div className={styles.todoItems}>
         {
           tasks.map((task) => (
             <div className={styles.todoItem}>
-              <li>{task.title}</li>
+              <li className={styles.taskInfo}>
+                <input type='checkbox' id={task.id} name='Tasks' value={task.title} />
+                <label>{task.title}</label>
+              </li>
+              <div className={styles.taskActions}>
+                <img src={EditIcon} alt='edit-icon' height='20px' width='20px' />
+                <img src={DeletIcon} alt='delete-icon' height='20px' width='20px' />
+              </div>
             </div>
           ))
         }
