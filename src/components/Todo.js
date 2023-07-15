@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../styles/Todo.module.css';
 import {getTasks} from '../api/index';
-import DeletIcon from '../images/delete.png';
-import EditIcon from '../images/editing.png';
 import DoneIcon from '../images/done.png';
+import TodoItem from './TodoItem';
 
 function Todo() {
   const [tasks, setTasks] = useState([]);
@@ -41,17 +40,8 @@ function Todo() {
       </div>
       <div className={styles.todoItems}>
         {
-          tasks.map((task) => (
-            <div className={styles.todoItem}>
-              <li className={styles.taskInfo}>
-                <input type='checkbox' id={task.id} name='Tasks' value={task.title} />
-                <label>{task.title}</label>
-              </li>
-              <div className={styles.taskActions}>
-                <img src={EditIcon} alt='edit-icon' height='20px' width='20px' />
-                <img src={DeletIcon} alt='delete-icon' height='20px' width='20px' />
-              </div>
-            </div>
+          tasks.map((task, index) => (
+           <TodoItem task={task} key={index} />
           ))
         }
       </div>
