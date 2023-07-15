@@ -1,23 +1,20 @@
-import { API_URLS, getFormBody } from "../utils";
+import { API_URLS } from "../utils";
 
 //global fetch function to make api calls
 const customFetch =  async (url, {body, ...customConfig}) => {
-  const headers = {
-    'content-type': 'application/json; charset=UTF-8'
-  }
+
+  // const headers = {
+  //   'content-type': 'application/json; charset=UTF-8'
+  // }
 
   //define the configuration for fetch function
   const config = {
     ...customConfig,
-    headers: {
-      ...headers,
-      ...customConfig.headers
-    }
   }
 
   //if body exists add it to config
   if(body){
-    config.body = getFormBody(body);
+    config.body = body;
   }
 
   try{
@@ -44,5 +41,17 @@ const customFetch =  async (url, {body, ...customConfig}) => {
 export const getTasks = (limit) => {
   return customFetch(API_URLS.getTasks(limit), {
     method: 'GET'
+  });
+}
+
+//API to add as task
+export const addTask = (userId, taskName, taskStatus) => {
+  return customFetch(API_URLS.addTask(), {
+    method: 'POST',
+    body: {
+      userId: userId,
+      title: taskName,
+      completed: taskStatus
+    }
   });
 }
