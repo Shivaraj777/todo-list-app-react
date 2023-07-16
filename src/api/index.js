@@ -62,3 +62,14 @@ export const deleteTask = (taskId) => {
     method: 'DELETE'
   });
 }
+
+//make API call to update a task
+export const updateTask = (taskId, taskName) => {
+  const verifiedTaskId = taskId === 0 ? 1 : taskId;
+  return customFetch(API_URLS.updateTask(verifiedTaskId), {
+    method: 'PUT',
+    body: {
+      title: taskName
+    }
+  });
+}
