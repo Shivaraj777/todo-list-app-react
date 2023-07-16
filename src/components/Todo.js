@@ -27,23 +27,26 @@ function Todo() {
 
   // handle adding a new task to Todo list
   const addTodoTask = async (e) => {
-    // if Enter key is pressed make API call to add task
-    if(e.key === 'Enter' || e.target.id === 'add-task'){
-      const response = await addTask(1, 201, false);
-      
-      // if response is successfull add new task to list
-      if(response.success){
-        const newTask = {
-          userId: 1,
-          id: 201,
-          title: taskName,
-          completed: false
-        }
-        setTasks([newTask, ...tasks]);
-        addToast('Task added successfully', {
-          appearance: 'success'
-        });
+    if(taskName === ''){
+      return addToast('Task name cannot be blank', {
+        appearance: 'error'
+      });
+    }
+
+    const response = await addTask(1, 201, false);
+    
+    // if response is successfull add new task to list
+    if(response.success){
+      const newTask = {
+        userId: 1,
+        id: 201,
+        title: taskName,
+        completed: false
       }
+      setTasks([newTask, ...tasks]);
+      addToast('Task added successfully', {
+        appearance: 'success'
+      });
     }
   }
 
@@ -103,7 +106,7 @@ function Todo() {
         <h1>Todo App</h1>
       </div>
       <div className={styles.createtask}>
-        <input type='text' onKeyUp={addTodoTask} value={taskName} onChange={(e) => setTaskName(e.target.value)} placeholder='Add your task' />
+        <input type='text' value={taskName} onChange={(e) => setTaskName(e.target.value)} placeholder='Add your task' />
         <button id='add-task' onClick={!editMode ? addTodoTask : updateTodoTask}>{editMode ? 'Update task' : 'Add Task'}</button>
       </div>
       <div className={styles.actions}>
