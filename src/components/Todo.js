@@ -44,6 +44,7 @@ function Todo() {
         completed: false
       }
       setTasks([newTask, ...tasks]);
+      setTaskName('');
       addToast('Task added successfully', {
         appearance: 'success'
       });
@@ -100,6 +101,15 @@ function Todo() {
     }
   }
 
+   // handle checkbox change for a task
+   const handleTaskCheckboxChange = (taskId) => {
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        prevTasks.indexOf(task) === taskId ? { ...task, completed: !task.completed } : task
+      )
+    );
+  };
+
   return (
     <div className={styles.todoContainer}>
       <div className='app-header'>
@@ -112,16 +122,16 @@ function Todo() {
       <div className={styles.actions}>
         <div className={styles.completeTasks}>
           <img src={DoneIcon} alt='done-icon' height='30px' width='30px' />
-          <span>Complete all tasks</span>
+          <span>Tasks</span>
         </div>
         <div className={styles.deleteTasks}>
-          <span>Delete tasks</span>
+          <span>Actions</span>
         </div>
       </div>
-      <div className={styles.todoItems}>
+      <div className={tasks.length>4 ? styles.todoItemsScroll : styles.todoItems}>
         {
           tasks.map((task, index) => (
-           <TodoItem task={task} taskId={index} key={index} handleDeleteTask={deleteTodoTask} handleEditTask={editTask} />
+           <TodoItem task={task} taskId={index} key={index} handleDeleteTask={deleteTodoTask} handleEditTask={editTask} handleTaskCheckboxChange={handleTaskCheckboxChange} />
           ))
         }
       </div>
