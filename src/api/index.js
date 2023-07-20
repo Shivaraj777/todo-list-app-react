@@ -3,13 +3,14 @@ import { API_URLS } from "../utils";
 //global fetch function to make api calls
 const customFetch =  async (url, {body, ...customConfig}) => {
 
-  // const headers = {
-  //   'content-type': 'application/json; charset=UTF-8'
-  // }
+  const headers = {
+    'content-type': 'application/json; charset=UTF-8'
+  }
 
   //define the configuration for fetch function
   const config = {
     ...customConfig,
+    ...headers
   }
 
   //if body exists add it to config
@@ -45,11 +46,10 @@ export const getTasks = (limit) => {
 }
 
 //male API call to add as task
-export const addTask = (userId, taskName, taskStatus) => {
+export const addTask = (taskName, taskStatus) => {
   return customFetch(API_URLS.addTask(), {
     method: 'POST',
     body: {
-      userId: userId,
       title: taskName,
       completed: taskStatus
     }

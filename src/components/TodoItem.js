@@ -1,9 +1,10 @@
 import React from 'react';
 import styles from '../styles/Todo.module.css';
 import DeletIcon from '../images/delete.png';
-import EditIcon from '../images/editing.png';
+import EditIcon from '../images/editing.png'
 
-function TodoItem({task, taskId, handleDeleteTask, handleEditTask, handleTaskCheckboxChange}) {
+// Todo item component
+function TodoItem({task, taskId, handleDeleteTask, handleEditTask, handleTaskCheckboxChange, editMode}) {
 
   return (
     <div className={styles.todoItem}>
@@ -20,4 +21,5 @@ function TodoItem({task, taskId, handleDeleteTask, handleEditTask, handleTaskChe
   )
 }
 
+// export the component
 export default TodoItem;

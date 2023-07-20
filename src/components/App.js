@@ -1,5 +1,6 @@
 import Todo from "./Todo";
 
+// App component
 function App() {
   return (
     <div className="App">
@@ -8,4 +9,5 @@ function App() {
   );
 }
 
+// export App component
 export default App;

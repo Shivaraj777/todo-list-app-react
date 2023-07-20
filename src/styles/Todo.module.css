@@ -15,7 +15,8 @@
     left: 2%;
     height: 3rem;
     width: 30em;
-    padding-left: 10px;
+    box-sizing: border-box;
+    padding-left: 15px;
     border: none;
     border-radius: 24px;
     border-top-right-radius: 0;
@@ -28,6 +29,7 @@
 }
 
 .createtask button{
+    font-size: 16px;
     position: relative;
     right: 2.5%;
     height: 3rem;
@@ -37,14 +39,29 @@
     border-radius: 24px;
     /* border-top-left-radius: 0;
     border-bottom-left-radius: 0; */
-    background-color: rgb(185, 3, 3);
+}
+
+#addTask{
+    background-color: rgb(234,60,83);
+}
+
+#addTask:hover{
+    background-color: rgb(235,10,83);
+}
+
+#updateTask{
+    background-color: rgb(0,170,228);
+}
+
+#updateTask:hover{
+    background-color: rgb(0,150,228);
 }
 
 .createtask button:hover{
     cursor: pointer;
 }
 
-.actions{
+.headers{
     height: 4.5rem;
     width: 90%;
     display: flex;
@@ -56,17 +73,9 @@
     padding-right: 4px;
 }
 
-.completeTasks{
+.tasksName{
     display: flex;
     justify-content: space-between;
-}
-
-.completeTasks:hover{
-    cursor: pointer;
-}
-
-.deleteTasks:hover{
-    cursor: pointer;
 }
 
 .todoItems{
@@ -98,25 +107,22 @@
     background-color: rgb(213, 213, 236);
 }
 
-.todoItem li{
+.taskInfo{
     list-style: none;
     word-wrap: break-word;
-}
-
-.taskInfo{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
 }
 
 .taskInfo label{
-    padding-top: 11px;
+    padding-top: 7px;
     padding-left: 10px;
 }
 
 .taskInfo span{
     font-size: small;
-    padding-top: 14px;
+    padding-top: 10px;
     padding-left: 10px;
     color: gray;
     /* background-color: aqua; */
@@ -147,8 +153,49 @@
 
 
 /* Media queries */
-/* @media screen and (max-width: 650px) {
+@media screen and (max-width: 576px) {
     .todoContainer{
-        width: auto;
+        top: 5rem;
+        width: 100%;
     }
-} */
+
+    .createtask input{
+        width: 18em;
+    }
+
+    .createtask button{
+        width: 6em;
+    }
+
+    .todoItems{
+        height: 19rem;
+        max-height: 30rem;
+    }
+
+    .todoItem{
+        height: fit-content;
+    }
+
+    .taskInfo label{
+        width: 6em;
+    }
+}
+
+
+@media screen and (max-width: 360px) {
+    .createtask input{
+        width: 11em;
+    }
+
+    .createtask button{
+        width: 6em;
+    }
+
+    .todoItems{
+        height: 20rem;
+    }
+
+    .taskInfo span{
+        padding-left: 7px;
+    }
+}
