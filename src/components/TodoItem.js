@@ -5,6 +5,7 @@ import EditIcon from '../images/editing.png'
 
 // Todo item component
 function TodoItem(props){
+  const {task, handleTaskCheckboxChange, handleEditTask, handleDeleteTask} = props;
 
   // JSX code
   return (
@@ -14,32 +15,32 @@ function TodoItem(props){
       <li className={styles.taskInfo}>
         <input 
           type='checkbox' 
-          id={`task-${props.taskId}`} 
+          id={`task-${task.id}`} 
           name='Tasks' 
-          value={props.task.title} 
-          checked={props.task.completed} 
-          onChange={() => props.handleTaskCheckboxChange(props.taskId)} 
+          value={task.title} 
+          checked={task.completed} 
+          onChange={() => handleTaskCheckboxChange(task.id)} 
         />
         <label 
-          className={props.task.completed ? styles.isCompleted : styles.toDo} 
-          htmlFor={`task-${props.taskId}`}
+          className={task.completed ? styles.isCompleted : styles.toDo} 
+          htmlFor={`task-${task.id}`}
         >
-          {props.task.title}
+          {task.title}
         </label>
-        <span>Status: {props.task.completed ? 'Completed' : 'To Do'}</span>
+        <span>Status: {task.completed ? 'Completed' : 'To Do'}</span>
       </li>
 
       {/* Task actions */}
       <div className={styles.taskActions}>
         <img 
           src={EditIcon} 
-          onClick={() => props.handleEditTask(props.taskId)} 
+          onClick={() => handleEditTask(task.id)} 
           alt='edit-icon' 
           height='20px' width='20px' 
         />
         <img 
           src={DeletIcon} 
-          onClick={() => props.handleDeleteTask(props.taskId)} 
+          onClick={() => handleDeleteTask(task.id)} 
           alt='delete-icon' 
           height='20px' width='20px' 
         />

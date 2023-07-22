@@ -46,13 +46,10 @@ export const getTasks = (limit) => {
 }
 
 //male API call to add as task
-export const addTask = (taskName, taskStatus) => {
+export const addTask = (newTask) => {
   return customFetch(API_URLS.addTask(), {
     method: 'POST',
-    body: {
-      title: taskName,
-      completed: taskStatus
-    }
+    body: JSON.stringify(newTask)
   });
 }
 
@@ -65,8 +62,7 @@ export const deleteTask = (taskId) => {
 
 //make API call to update a task
 export const updateTask = (taskId, taskName) => {
-  const verifiedTaskId = taskId === 0 ? 1 : taskId;
-  return customFetch(API_URLS.updateTask(verifiedTaskId), {
+  return customFetch(API_URLS.updateTask(taskId), {
     method: 'PUT',
     body: {
       title: taskName

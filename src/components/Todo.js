@@ -20,7 +20,7 @@ function Todo() {
 
       // if response is successfull set the tasks state
       if(response.success){
-        console.log(response.data);
+        // console.log(response.data);
         setTasks(response.data);
       }else{
         toast.error('Error in fetching posts');
@@ -36,20 +36,22 @@ function Todo() {
     setLoading(true);
 
     if(taskName === ''){
+      setLoading(false);
       return toast.error('Task name cannot be null');
     }
 
+    const newTask = {
+      userId: 1,
+      id: (((1+Math.random())*0x10)|0),
+      title: taskName,
+      completed: false
+    }
+
     // make API call to add task
-    const response = await addTask(taskName, false);
+    const response = await addTask(newTask);
     
     // if response is successfull add new task to tasks list
     if(response.success){
-      const newTask = {
-        userId: 1,
-        id: 201,
-        title: taskName,
-        completed: false
-      }
       setTasks([newTask, ...tasks]);
       toast.success('Task added successfully');
     }else{
@@ -68,7 +70,7 @@ function Todo() {
 
     if(response.success){
       // console.log(response.data);
-      const updatedTasks = tasks.filter((task) => tasks.indexOf(task) !== taskId);
+      const updatedTasks = tasks.filter((task) => task.id !== taskId);
       setTasks(updatedTasks);
       toast.success('Task deleted successfully');
     }else{
@@ -81,7 +83,7 @@ function Todo() {
   const editTask = (taskId) => {
     setEditTaskId(taskId);
     setEditMode(true);
-    const taskToEdit = tasks.find((task) => tasks.indexOf(task) === taskId);
+    const taskToEdit = tasks.find((task) => task.id === taskId);
     setTaskName(taskToEdit.title); //set the task to be updated in state
   } 
 
@@ -91,6 +93,7 @@ function Todo() {
     setLoading(true);
 
     if(taskName === ''){
+      setLoading(false);
       return toast.error('Task name cannot be empty');
     }
 
@@ -100,7 +103,7 @@ function Todo() {
     if(response.success){
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
-          prevTasks.indexOf(task) === editTaskId ? { ...task, title: taskName } : task
+          task.id === editTaskId ? { ...task, title: taskName } : task
         )
       );
 
@@ -119,7 +122,7 @@ function Todo() {
   const handleTaskCheckboxChange = (taskId) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
-        prevTasks.indexOf(task) === taskId ? { ...task, completed: !task.completed } : task
+        task.id === taskId ? { ...task, completed: !task.completed } : task
       )
     );
   };
@@ -166,12 +169,10 @@ function Todo() {
           tasks.map((task, index) => (
             <TodoItem 
               task={task} 
-              taskId={index}
               key={index} 
               handleDeleteTask={deleteTodoTask} 
               handleEditTask={editTask} 
               handleTaskCheckboxChange={handleTaskCheckboxChange} 
-              editMode={editMode}
             />
           ))
         }
