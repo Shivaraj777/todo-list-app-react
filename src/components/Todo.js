@@ -107,15 +107,12 @@ function Todo() {
     const response = await updateTask(editTaskId, taskName);
 
     if(response.success){
-      const updatedTasks = [];
-      for(let i=0; i<tasks.length; i++){
-        if(i === editTaskId){
-          tasks[i].title = taskName;
-        }
-        updatedTasks.push(tasks[i]);
-      }
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          prevTasks.indexOf(task) === editTaskId ? { ...task, title: taskName } : task
+        )
+      );
 
-      setTasks(updatedTasks);
       addToast('Task updated successfully', {
         appearance: 'success'
       });
@@ -179,7 +176,7 @@ function Todo() {
           tasks.map((task, index) => (
             <TodoItem 
               task={task} 
-              taskId={index} 
+              taskId={index}
               key={index} 
               handleDeleteTask={deleteTodoTask} 
               handleEditTask={editTask} 
