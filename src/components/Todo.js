@@ -3,7 +3,7 @@ import styles from '../styles/Todo.module.css';
 import {addTask, deleteTask, getTasks, updateTask} from '../api/index';
 import TasksIcon from '../images/done.png';
 import TodoItem from './TodoItem';
-import { useToasts } from 'react-toast-notifications';
+import { toast } from 'react-toastify';
 
 // Todo component
 function Todo() {
@@ -11,7 +11,6 @@ function Todo() {
   const [taskName, setTaskName] = useState('');  //state to store the task name typed in input field
   const [editTaskId, setEditTaskId] = useState('');  //state to store the ID of task to be updated
   const [editMode, setEditMode] = useState(false); //state to switch to update mode
-  const {addToast} = useToasts();  // use react toast notifications
 
   // fetch tasks from API when component is renederd for first time
   useEffect(() => {
@@ -23,22 +22,18 @@ function Todo() {
         console.log(response.data);
         setTasks(response.data);
       }else{
-        addToast('Error in fetching tasks', {
-          appearance: 'error'
-        });
+        toast.error('Error in fetching posts');
       }
     }
 
     getTodoTasks();
-  }, [addToast])
+  }, [])
 
 
   // handle adding a new task to Todo list
   const addTodoTask = async () => {
     if(taskName === ''){
-      return addToast('Task name cannot be blank', {
-        appearance: 'error'
-      });
+      return toast.error('Task name cannot be null');
     }
 
     // make API call to add task
@@ -53,13 +48,9 @@ function Todo() {
         completed: false
       }
       setTasks([newTask, ...tasks]);
-      addToast('Task added successfully', {
-        appearance: 'success'
-      });
+      toast.success('Task added successfully');
     }else{
-      addToast('Error in adding task', {
-        appearance: 'error'
-      });
+      toast.error('Error in adding task');
     }
 
     setTaskName('');
@@ -75,13 +66,9 @@ function Todo() {
       // console.log(response.data);
       const updatedTasks = tasks.filter((task) => tasks.indexOf(task) !== taskId);
       setTasks(updatedTasks);
-      addToast('Task deleted successfully', {
-        appearance: 'success'
-      });
+      toast.success('Task deleted successfully');
     }else{
-      return addToast('Error in deleting task', {
-        appearance: 'error'
-      });
+      return toast.error('Error in deleting task');
     }
   }
 
@@ -98,9 +85,7 @@ function Todo() {
   // handle updating a task from list
   const updateTodoTask = async () => {
     if(taskName === ''){
-      return addToast('Task name cannot be blank', {
-        appearance: 'error'
-      });
+      return toast.error('Task name cannot be empty');
     }
 
     //make API call to update a task
@@ -113,13 +98,9 @@ function Todo() {
         )
       );
 
-      addToast('Task updated successfully', {
-        appearance: 'success'
-      });
+      toast.success('Task updated successfully');
     }else{
-      addToast('Error in updating task', {
-        appearance: 'error'
-      });
+      toast.error('Error in updating task');
     }
 
     setEditMode(false);
