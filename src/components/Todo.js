@@ -131,7 +131,7 @@ function Todo() {
   return (
     <div className={styles.todoContainer}>
       <div className='app-header'>
-        <h1>Todo App</h1>
+        <h1>Todo List</h1>
       </div>
 
       {/* Todo list input container */}
