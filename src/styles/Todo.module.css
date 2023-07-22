@@ -1,3 +1,4 @@
+/* Todo list container */
 .todoContainer{
     width: 35em;
     position: relative;
@@ -6,17 +7,19 @@
     align-items: center;
     display: flex;
     flex-direction: column;
-    border: 1px solid black;
+    border: none;
+    border-radius: 15px;
     background-color: lavender;
 }
 
+/* Todo list input container */
 .createtask input{
     position: relative;
     left: 2%;
     height: 3rem;
     width: 30em;
     box-sizing: border-box;
-    padding-left: 15px;
+    padding-left: 30px;
     border: none;
     border-radius: 24px;
     border-top-right-radius: 0;
@@ -61,6 +64,7 @@
     cursor: pointer;
 }
 
+/* Todo tasks header container */
 .headers{
     height: 4.5rem;
     width: 90%;
@@ -78,6 +82,7 @@
     justify-content: space-between;
 }
 
+/* Todo tasks container */
 .todoItems{
     width: 90%;
     height: 13rem;
@@ -90,65 +95,6 @@
     max-height: 15rem;
     overflow-y: scroll;
     scrollbar-width: thin;
-}
-
-.todoItem{
-    height: 3rem;
-    width: 100%;
-    box-sizing: border-box;
-    padding: 5px 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    border-radius: 8px;
-}
-
-.todoItem:hover{
-    background-color: rgb(213, 213, 236);
-}
-
-.taskInfo{
-    list-style: none;
-    word-wrap: break-word;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.taskInfo label{
-    padding-top: 7px;
-    padding-left: 10px;
-}
-
-.taskInfo span{
-    font-size: small;
-    padding-top: 10px;
-    padding-left: 10px;
-    color: gray;
-    /* background-color: aqua; */
-}
-
-.isCompleted{
-    text-decoration: line-through;
-}
-
-.toDo{
-    text-decoration: none;
-}
-
-.taskActions{
-    width: 3em;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.taskActions img{
-    padding-top: 11px;
-}
-
-.taskActions img:hover{
-    cursor: pointer;
 }
 
 
@@ -172,12 +118,9 @@
         max-height: 30rem;
     }
 
-    .todoItem{
-        height: fit-content;
-    }
-
-    .taskInfo label{
-        width: 6em;
+    .todoItemsScroll{
+        height: 19rem;
+        max-height: 30rem;
     }
 }
 
@@ -193,9 +136,5 @@
 
     .todoItems{
         height: 20rem;
-    }
-
-    .taskInfo span{
-        padding-left: 7px;
     }
 }

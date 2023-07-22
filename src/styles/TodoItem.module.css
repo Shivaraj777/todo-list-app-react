@@ -1,0 +1,93 @@
+/* Todo task */
+.todoItem{
+    height: 3rem;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 5px 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 8px;
+}
+
+.todoItem:hover{
+    background-color: rgb(213, 213, 236);
+}
+
+.taskInfo{
+    list-style: none;
+    word-wrap: break-word;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.taskInfo input[type=checkbox]{
+    height: 15px;
+    width: 15px;
+    margin-top: 13px;
+}
+
+.taskInfo input:hover{
+    cursor: pointer;
+}
+
+.taskInfo label{
+    padding-top: 7px;
+    padding-left: 10px;
+}
+
+.taskInfo label{
+    cursor: pointer;
+}
+
+.taskInfo span{
+    font-size: small;
+    padding-top: 10px;
+    padding-left: 10px;
+    color: gray;
+    /* background-color: aqua; */
+}
+
+.isCompleted{
+    text-decoration: line-through;
+}
+
+.toDo{
+    text-decoration: none;
+}
+
+/* Task actions */
+.taskActions{
+    width: 3em;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.taskActions img{
+    padding-top: 11px;
+}
+
+.taskActions img:hover{
+    cursor: pointer;
+}
+
+
+/* Media queries */
+@media screen and (max-width: 576px) {
+    .todoItem{
+        height: fit-content;
+    }
+
+    .taskInfo label{
+        width: 6em;
+    }
+}
+
+
+@media screen and (max-width: 360px) {
+    .taskInfo span{
+        padding-left: 7px;
+    }
+}

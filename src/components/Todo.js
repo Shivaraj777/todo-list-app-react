@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import styles from '../styles/Todo.module.css';
 import {addTask, deleteTask, getTasks, updateTask} from '../api/index';
-import DoneIcon from '../images/done.png';
+import TasksIcon from '../images/done.png';
 import TodoItem from './TodoItem';
 import { useToasts } from 'react-toast-notifications';
 
@@ -22,11 +22,16 @@ function Todo() {
       if(response.success){
         console.log(response.data);
         setTasks(response.data);
+      }else{
+        addToast('Error in fetching tasks', {
+          appearance: 'error'
+        });
       }
     }
 
     getTodoTasks();
-  }, [])
+  }, [addToast])
+
 
   // handle adding a new task to Todo list
   const addTodoTask = async () => {
@@ -48,12 +53,18 @@ function Todo() {
         completed: false
       }
       setTasks([newTask, ...tasks]);
-      setTaskName('');
       addToast('Task added successfully', {
         appearance: 'success'
       });
+    }else{
+      addToast('Error in adding task', {
+        appearance: 'error'
+      });
     }
+
+    setTaskName('');
   }
+
 
   //handle deleting a task from list
   const deleteTodoTask = async (taskId) => {
@@ -64,12 +75,16 @@ function Todo() {
       // console.log(response.data);
       const updatedTasks = tasks.filter((task) => tasks.indexOf(task) !== taskId);
       setTasks(updatedTasks);
-      setTaskName('');
       addToast('Task deleted successfully', {
         appearance: 'success'
       });
+    }else{
+      return addToast('Error in deleting task', {
+        appearance: 'error'
+      });
     }
   }
+
 
   // handle switching to edit mode if edit icon is clicked
   const editTask = (taskId) => {
@@ -78,6 +93,7 @@ function Todo() {
     const taskToEdit = tasks.find((task) => tasks.indexOf(task) === taskId);
     setTaskName(taskToEdit.title); //set the task to be updated in state
   } 
+
 
   // handle updating a task from list
   const updateTodoTask = async () => {
@@ -100,16 +116,22 @@ function Todo() {
       }
 
       setTasks(updatedTasks);
-      setEditMode(false);
-      setTaskName('');
       addToast('Task updated successfully', {
         appearance: 'success'
       });
+    }else{
+      addToast('Error in updating task', {
+        appearance: 'error'
+      });
     }
+
+    setEditMode(false);
+    setTaskName('');
   }
 
-   // handle checkbox change for a task
-   const handleTaskCheckboxChange = (taskId) => {
+
+  // handle checkbox change for a task
+  const handleTaskCheckboxChange = (taskId) => {
     setTasks((prevTasks) =>
       prevTasks.map((task) =>
         prevTasks.indexOf(task) === taskId ? { ...task, completed: !task.completed } : task
@@ -117,28 +139,53 @@ function Todo() {
     );
   };
 
+  // JSX code
   return (
     <div className={styles.todoContainer}>
       <div className='app-header'>
         <h1>Todo App</h1>
       </div>
+
+      {/* Todo list input container */}
       <div className={styles.createtask}>
-        <input type='text' value={taskName} onChange={(e) => setTaskName(e.target.value)} placeholder='Add your task' />
-        <button id={!editMode ? styles.addTask : styles.updateTask} onClick={!editMode ? addTodoTask : updateTodoTask}>{editMode ? 'Update task' : 'Add Task'}</button>
+        <input 
+          type='text' 
+          value={taskName} 
+          onChange={(e) => setTaskName(e.target.value)} 
+          placeholder='Add your task' 
+        />
+        <button 
+          id={!editMode ? styles.addTask : styles.updateTask} 
+          onClick={!editMode ? addTodoTask : updateTodoTask}
+        >
+          {editMode ? 'Update task' : 'Add Task'}
+        </button>
       </div>
+
+      {/* Todo tasks header container */}
       <div className={styles.headers}>
         <div className={styles.tasksName}>
-          <img src={DoneIcon} alt='done-icon' height='30px' width='30px' />
+          <img src={TasksIcon} alt='done-icon' height='30px' width='30px' />
           <span>Tasks</span>
         </div>
         <div className={styles.deleteTasks}>
           <span>Actions</span>
         </div>
       </div>
+
+      {/* Todo tasks container */}
       <div className={tasks.length>4 ? styles.todoItemsScroll : styles.todoItems}>
         {
           tasks.map((task, index) => (
-           <TodoItem task={task} taskId={index} key={index} handleDeleteTask={deleteTodoTask} handleEditTask={editTask} handleTaskCheckboxChange={handleTaskCheckboxChange} editMode={editMode}/>
+            <TodoItem 
+              task={task} 
+              taskId={index} 
+              key={index} 
+              handleDeleteTask={deleteTodoTask} 
+              handleEditTask={editTask} 
+              handleTaskCheckboxChange={handleTaskCheckboxChange} 
+              editMode={editMode}
+            />
           ))
         }
       </div>
