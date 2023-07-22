@@ -11,6 +11,7 @@ function Todo() {
   const [taskName, setTaskName] = useState('');  //state to store the task name typed in input field
   const [editTaskId, setEditTaskId] = useState('');  //state to store the ID of task to be updated
   const [editMode, setEditMode] = useState(false); //state to switch to update mode
+  const [loading, setLoading] = useState(false); //state for providing buffer to add and update tasks
 
   // fetch tasks from API when component is renederd for first time
   useEffect(() => {
@@ -32,6 +33,8 @@ function Todo() {
 
   // handle adding a new task to Todo list
   const addTodoTask = async () => {
+    setLoading(true);
+
     if(taskName === ''){
       return toast.error('Task name cannot be null');
     }
@@ -53,6 +56,7 @@ function Todo() {
       toast.error('Error in adding task');
     }
 
+    setLoading(false);
     setTaskName('');
   }
 
@@ -84,6 +88,8 @@ function Todo() {
 
   // handle updating a task from list
   const updateTodoTask = async () => {
+    setLoading(true);
+
     if(taskName === ''){
       return toast.error('Task name cannot be empty');
     }
@@ -103,6 +109,7 @@ function Todo() {
       toast.error('Error in updating task');
     }
 
+    setLoading(false);
     setEditMode(false);
     setTaskName('');
   }
@@ -132,12 +139,14 @@ function Todo() {
           onChange={(e) => setTaskName(e.target.value)} 
           placeholder='Add your task' 
         />
-        <button 
-          id={!editMode ? styles.addTask : styles.updateTask} 
-          onClick={!editMode ? addTodoTask : updateTodoTask}
-        >
-          {editMode ? 'Update task' : 'Add Task'}
-        </button>
+        {!editMode ? 
+          <button id={styles.addTask} onClick={addTodoTask}>
+            {!loading ? 'Add task' : 'Adding task..'}
+          </button> : 
+          <button id={styles.updateTask} onClick={updateTodoTask}>
+            {!loading ? 'Update task' : 'Updating task..'}
+          </button>
+        }
       </div>
 
       {/* Todo tasks header container */}
@@ -168,7 +177,7 @@ function Todo() {
         }
       </div>
     </div>
-  )
+  );
 }
 
 // export the component

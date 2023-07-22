@@ -45,7 +45,7 @@ function TodoItem(props){
         />
       </div>
     </div>
-  )
+  );
 };
 
 // export the component
