@@ -13,6 +13,11 @@
 }
 
 /* Todo list input container */
+.createtask{
+    display: flex;
+    flex-direction: row;
+}
+
 .createtask input{
     position: relative;
     left: 2%;
@@ -106,11 +111,12 @@
     }
 
     .createtask input{
+        padding-left: 20px;
         width: 18em;
     }
 
     .createtask button{
-        width: 6em;
+        width: 8em;
     }
 
     .todoItems{
@@ -127,6 +133,7 @@
 
 @media screen and (max-width: 360px) {
     .createtask input{
+        padding-left: 15px;
         width: 11em;
     }
 

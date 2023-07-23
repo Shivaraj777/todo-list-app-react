@@ -40,9 +40,10 @@ function Todo() {
       return toast.error('Task name cannot be null');
     }
 
+    // new task
     const newTask = {
       userId: 1,
-      id: (((1+Math.random())*0x10)|0),
+      id: (((1+Math.random())*0x10)|0), //Note: due to limitations of API ID can be of only two digits and hence may not be unique all the time
       title: taskName,
       completed: false
     }
